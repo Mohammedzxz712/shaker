@@ -1,108 +1,149 @@
 import 'package:flutter/material.dart';
-import 'package:heart_doctor/shared/component/constant.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../widgets/drop_down_buttom.dart';
-
-class CheckScreen extends StatefulWidget {
+class CheckScreen extends StatelessWidget {
   const CheckScreen({Key? key}) : super(key: key);
-
-  static const routeName = '/check_screen';
-
-  @override
-  State<CheckScreen> createState() => _CheckScreenState();
-}
-
-class _CheckScreenState extends State<CheckScreen> {
-  String dropdownValue = 'Public';
-  String? selectedGender;
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Check Page'),
+        backgroundColor: Colors.orangeAccent,
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(16.0.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            verticalSpace(15),
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      CustomDropdownButton(
-                        value: dropdownValue,
-                        onChanged: (String? value) {
-                          setState(() {
-                            dropdownValue = value!;
-                          });
-                        },
-                      ),
-                    ],
+            Center(
+              child: Text(
+                'Predict Your Heart Disease',
+                style: TextStyle(
+                  fontSize: 24.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
+            ),
+            SizedBox(height: 30.h),
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 2,
+                children: [
+                  _buildDropdownField('Gender', ['Male', 'Female']),
+                  _buildTextField('Age', TextEditingController()),
+                  _buildDropdownField('CP', ['Type 1', 'Type 2', 'Type 3']),
+                  _buildTextField('REST ECG', TextEditingController()),
+                  _buildDropdownField('TREST BPS', ['Normal', 'High']),
+                  _buildTextField('Max. Heart Rate', TextEditingController()),
+                  _buildDropdownField('Exercise Induced Angina', ['Yes', 'No']),
+                  _buildTextField('ST Depression Induced by Exercise',
+                      TextEditingController()),
+                  _buildDropdownField(
+                      'ST Slope', ['Upsloping', 'Flat', 'Downsloping']),
+                  _buildTextField('CA', TextEditingController()),
+                ],
+              ),
+            ),
+            SizedBox(height: 30.h),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  // Implement your logic here
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.orangeAccent,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 30.w,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.r),
                   ),
                 ),
-                horizontalSpace(15),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        'Select Gender:',
-                        style: TextStyle(fontSize: 16.0),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: InkWell(
-                            onTap: _showGenderOptions,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(selectedGender ?? 'Select'),
-                                Icon(Icons.arrow_drop_down),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                child: Text(
+                  'Check Now',
+                  style: TextStyle(fontSize: 20.sp),
                 ),
-              ],
-            )
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 
-  void _showGenderOptions() {
-    final RenderBox overlay =
-        Overlay.of(context)!.context.findRenderObject() as RenderBox;
-    showMenu<String>(
-      context: context,
-      position: RelativeRect.fromRect(
-        Rect.fromPoints(
-          overlay.localToGlobal(Offset.zero),
-          overlay.localToGlobal(overlay.semanticBounds.bottomRight),
+  Widget _buildDropdownField(String label, List<String> options) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+              fontSize: 16.sp,
+              color: Colors.black87,
+              fontWeight: FontWeight.bold),
         ),
-        Offset.zero & overlay.semanticBounds.size,
-      ),
-      items: <String>['Male', 'Female', 'Other']
-          .map((String value) => PopupMenuItem<String>(
-                value: value,
-                child: Text(value),
-              ))
-          .toList(),
-    ).then((String? value) {
-      if (value != null) {
-        setState(() {
-          selectedGender = value;
-        });
-      }
-    });
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.orangeAccent),
+            borderRadius: BorderRadius.circular(10.r),
+          ),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              items: options.map((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+              onChanged: (String? value) {
+                // Handle change
+              },
+              hint: Text(
+                'Select',
+                style: TextStyle(fontSize: 14.sp),
+              ),
+              icon: Icon(
+                Icons.arrow_drop_down,
+                color: Colors.orangeAccent,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTextField(String label, TextEditingController controller) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+              fontSize: 16.sp,
+              color: Colors.black87,
+              fontWeight: FontWeight.bold),
+        ),
+        TextField(
+          controller: controller,
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
+            contentPadding:
+                EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.r),
+              borderSide: BorderSide(color: Colors.orangeAccent),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.r),
+              borderSide: BorderSide(color: Colors.orangeAccent),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
