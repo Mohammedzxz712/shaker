@@ -1,17 +1,21 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:heart_doctor/modules/login/login_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:heart_doctor/shared/bloc_observer.dart';
+import 'config/app_router.dart';
+import 'config/router_path.dart';
+import 'firebase_options.dart';
 
-import 'layout/layout_screen.dart';
-import 'modules/check/check_screen.dart';
-import 'modules/home/home_screen.dart';
-import 'modules/on_boarding/on_boarding_screen.dart';
-import 'modules/profile/profile_screen.dart';
-import 'modules/sign_up/sign_up_screen.dart';
-import 'modules/tips/tips_details.dart';
-import 'modules/tips/tips_screen.dart';
+import 'modules/login/cubit/cubit.dart';
+import 'modules/sign_up/cubit/cubit.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Bloc.observer = MyBlocObserver();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -21,20 +25,20 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context);
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/onboarding_screen',
-      routes: {
-        '/login_screen': (context) => LoginScreen(),
-        '/check_screen': (context) => const CheckScreen(),
-        '/tips_details': (context) => const TipsDetails(),
-        '/tips_screen': (context) => const TipsScreen(),
-        '/home_screen': (context) => const HomeScreen(),
-        '/profile_screen': (context) => const ProfileScreen(),
-        '/sign_up_screen': (context) => SignUpScreen(),
-        '/onboarding_screen': (context) => OnBoardingScreen(),
-        '/layout_screen': (context) => const LayoutScreen(),
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
+      builder: (context, child) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (_) => SocialLoginCubit()),
+            BlocProvider(create: (_) => SocialRegisterCubit()),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            initialRoute: RouterPath.onboarding,
+            onGenerateRoute: AppRouter.generateRoute,
+          ),
+        );
       },
     );
   }

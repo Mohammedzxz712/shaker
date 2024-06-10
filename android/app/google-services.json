@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1044782855266",
+    "project_id": "heart-c80b9",
+    "storage_bucket": "heart-c80b9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1044782855266:android:4719866c85205dc11fcd3b",
+        "android_client_info": {
+          "package_name": "com.example.heart_doctor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA65_RH69_QpAFqJjbkugCYWQzakPwroUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
