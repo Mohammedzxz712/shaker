@@ -1,251 +1,237 @@
+import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:heart_doctor/widgets/app_text_bottom.dart';
+import 'package:icons_plus/icons_plus.dart';
 
-import '../../shared/component/constant.dart';
+import '../../generated/assets.dart';
 import '../../shared/style/colors/app_colors.dart';
+import '../check/check_screen.dart';
 
-class HomeScreen extends StatelessWidget {
-  static const routeName = '/home_screen';
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late DateTime _selectedValue;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedValue = DateTime.now();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: ColorsManager.white,
-        body: SingleChildScrollView(
-          child: Column(children: [
-            verticalSpace(15),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Row(
-                children: [
-                  Text(
-                    "Hey,ahmed",
-                    style: TextStyle(color: Colors.black, fontSize: 20),
-                  ),
-                  Spacer(),
-                  Icon(
-                    Icons.notifications,
-                    color: Colors.black,
-                  ),
-                ],
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: const Text(
+            "Hi Ahmed",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Iconsax.notification_outline,
+                color: ColorsManager.orange,
               ),
             ),
-            verticalSpace(15),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  width: MediaQuery.of(context).size.width * 0.45,
-                  child: Card(
-                    color: Colors.white,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Heart Rate",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              )),
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: Text(
-                              "bpm 80",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          verticalSpace(40),
-                          Align(
-                            alignment: Alignment.topCenter,
-                            child: Text(
-                              "Normal",
-                              style: TextStyle(
-                                  fontSize: 15, color: ColorsManager.orange),
-                            ),
-                          ),
-                          verticalSpace(30),
-                          Align(
-                            alignment: Alignment.topCenter,
-                            child: Text(
-                              "7:13 PM",
-                              style: TextStyle(
-                                  fontSize: 15, color: ColorsManager.gray),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+          ],
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: DatePicker(
+                  DateTime.now(),
+                  initialSelectedDate: DateTime.now(),
+                  selectionColor: Colors.orange.withOpacity(.5),
+                  selectedTextColor: Colors.black,
+                  daysCount: 7,
+                  height: 100,
+                  onDateChange: (date) {
+                    // New date selected
+                    setState(() {
+                      _selectedValue = date;
+                    });
+                  },
                 ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  width: MediaQuery.of(context).size.width * 0.45,
-                  child: Card(
-                    color: Colors.white,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Heart Rate",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              )),
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: Text(
-                              "bpm 80",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          verticalSpace(40),
-                          Align(
-                            alignment: Alignment.topCenter,
-                            child: Text(
-                              "Normal",
-                              style: TextStyle(
-                                  fontSize: 15, color: ColorsManager.orange),
-                            ),
-                          ),
-                          verticalSpace(30),
-                          const Align(
-                            alignment: Alignment.topCenter,
-                            child: Text(
-                              "7:13 PM",
-                              style: TextStyle(
-                                  fontSize: 15, color: ColorsManager.gray),
-                            ),
-                          ),
-                        ],
-                      ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CheckScreen(),
                     ),
+                  );
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  margin: const EdgeInsets.all(10),
+                  width: MediaQuery.of(context).size.width / 2,
+                  height: 55,
+                  decoration: BoxDecoration(
+                    color: Colors.orange,
+                    borderRadius: BorderRadius.circular(15),
                   ),
-                ),
-              ],
-            ),
-            verticalSpace(15),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 14.0),
-              child: AppTextButton(
-                  buttonText: 'new check?',
-                  backgroundColor: ColorsManager.orange,
-                  textStyle:
-                      TextStyle(fontSize: 18, color: ColorsManager.white),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/check_screen');
-                  }),
-            ),
-            verticalSpace(15),
-            Padding(
-              padding: const EdgeInsets.all(14.0),
-              child: Row(
-                children: [
-                  Text(
-                    "edit",
+                  child: const Text(
+                    'New Check ? ',
                     style: TextStyle(
+                      color: Colors.white,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: ColorsManager.orange,
                     ),
                   ),
-                  Spacer(),
-                  Text(
-                    "MY ACTIVITIES",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
+                margin: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
+                width: MediaQuery.of(context).size.width,
+                height: 150,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.grey,
+                    style: BorderStyle.solid,
+                  ),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Row(
+                  children: [
+                    Image.asset(Assets.imagesHeard),
+                    Container(
+                      constraints: const BoxConstraints(
+                        maxWidth: 220,
+                      ),
+                      child: const Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            '* The average blood pressure for adults is 120 mmHg',
+                          ),
+                          Text(
+                            '* The average blood cholesterol for adults is 200 mg/dL',
+                          )
+                        ],
+                      ),
                     ),
+                  ],
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.all(15),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'History',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              const RisedItem(),
+              SizedBox(
+                height: 10,
+              ),
+              RisedItem(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class RisedItem extends StatelessWidget {
+  const RisedItem({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(20),
+      width: MediaQuery.of(context).size.width,
+      height: 150,
+      decoration: BoxDecoration(
+        color: const Color(0xfffcccb2).withOpacity(.5),
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: const Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    '148',
+                    style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    'mmHg',
+                    style: TextStyle(fontSize: 15),
                   ),
                 ],
               ),
-            ),
-            verticalSpace(15),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 14.0),
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.15,
-                width: double.infinity,
-                child: Card(
-                  color: Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10.0, vertical: 10),
-                    child: Row(
-                      children: [
-                        Icon(Icons.arrow_forward_ios),
-                        horizontalSpace(20),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Heart Rate",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                )),
-                            Text("2/2 measurements",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: ColorsManager.orange,
-                                  fontWeight: FontWeight.bold,
-                                )),
-                          ],
-                        ),
-                      ],
-                    ),
+              Row(
+                children: [
+                  Icon(
+                    Iconsax.heart_bold,
+                    color: Colors.red,
                   ),
-                ),
-              ),
-            ),
-            verticalSpace(15),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 14.0),
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.15,
-                width: double.infinity,
-                child: Card(
-                  color: Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10.0, vertical: 10),
-                    child: Row(
-                      children: [
-                        Icon(Icons.arrow_forward_ios),
-                        horizontalSpace(20),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Heart Rate",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                )),
-                            Text("2/2 measurements",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: ColorsManager.orange,
-                                  fontWeight: FontWeight.bold,
-                                )),
-                          ],
-                        ),
-                      ],
-                    ),
+                  SizedBox(
+                    width: 10,
                   ),
-                ),
+                  Text(
+                    'Rised',
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ],
               ),
-            ),
-          ]),
-        ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Iconsax.clock_outline),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                '12:00 PM',
+                style: TextStyle(fontSize: 15),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

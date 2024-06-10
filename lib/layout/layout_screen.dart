@@ -1,7 +1,9 @@
+import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:heart_doctor/generated/assets.dart';
-import '../shared/style/colors/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:icons_plus/icons_plus.dart';
+
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
@@ -18,26 +20,27 @@ class LayoutScreen extends StatelessWidget {
           var cubit = ShopCubit.get(context);
           return Scaffold(
             body: cubit.screens[cubit.currentIndex],
-            bottomNavigationBar: BottomNavigationBar(
-              onTap: (index) {
-                cubit.changeBottomScreen(index);
-              },
-              currentIndex: cubit.currentIndex,
-              selectedItemColor: ColorsManager.orange,
-              items: const [
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: 'Home',
-                ),
-                BottomNavigationBarItem(
-                  icon: ImageIcon(AssetImage(Assets.imagesLightbulb)),
-                  label: 'Tips',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.person),
-                  label: 'Profile',
-                ),
-              ],
+            bottomNavigationBar: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+              child: CustomNavigationBar(
+                strokeColor: Colors.orange,
+                selectedColor: Colors.orange,
+                borderRadius: Radius.circular(15.r),
+                items: [
+                  CustomNavigationBarItem(
+                    icon: const Icon(Iconsax.home_outline),
+                  ),
+                  CustomNavigationBarItem(
+                      icon: const Icon(Iconsax.lamp_charge_outline)),
+                  CustomNavigationBarItem(
+                    icon: const Icon(Iconsax.profile_tick_outline),
+                  ),
+                ],
+                currentIndex: cubit.currentIndex,
+                onTap: (index) {
+                  cubit.changeBottomScreen(index);
+                },
+              ),
             ),
           );
         },

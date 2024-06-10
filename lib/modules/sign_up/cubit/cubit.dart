@@ -63,7 +63,8 @@ class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
       emit(SocialCreateUserSuccessState());
     }).catchError((error) {
       print(error.toString());
-      emit(SocialCreateUserErrorState(error));
+      print('error${error.toString()}');
+      emit(SocialCreateUserErrorState(error.toString()));
     });
   }
 

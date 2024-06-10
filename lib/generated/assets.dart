@@ -14,12 +14,12 @@ class Assets {
       'assets/images/34085583_sl_091620_35180_40.jpg';
   static const String imagesArrow = 'assets/images/arrow.png';
   static const String imagesBackArrow = 'assets/images/back-arrow.png';
-  static const String imagesBackArrow1 = 'assets/images/back-arrow (1).png';
   static const String imagesDarkMode = 'assets/images/dark-mode.png';
   static const String imagesEdit = 'assets/images/edit.png';
   static const String imagesEditInfo = 'assets/images/edit-info.png';
   static const String imagesForgotpasswordCuate =
       'assets/images/Forgot password-cuate.png';
+  static const String imagesHeard = 'assets/images/heard.jpeg';
   static const String imagesHelp = 'assets/images/help.png';
   static const String imagesHelpWebButton = 'assets/images/help-web-button.png';
   static const String imagesHome = 'assets/images/home.png';
@@ -37,8 +37,6 @@ class Assets {
   static const String imagesNotification = 'assets/images/notification.png';
   static const String imagesNotificationBell =
       'assets/images/notification-bell.png';
-  static const String imagesNotificationBell1 =
-      'assets/images/notification-bell (1).png';
   static const String imagesOIP = 'assets/images/OIP.jpg';
   static const String imagesRightArrow = 'assets/images/right-arrow.png';
   static const String imagesSettings = 'assets/images/settings.png';
