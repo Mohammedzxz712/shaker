@@ -16,7 +16,7 @@ class TipsDetails extends StatelessWidget {
           children: [
             Card(
               color: Colors.white,
-              margin: EdgeInsets.all(16),
+              margin: const EdgeInsets.all(16),
               shape: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(12)),
                   borderSide: BorderSide(

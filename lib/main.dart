@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
             debugShowCheckedModeBanner: false,
-            initialRoute: RouterPath.onboarding,
+            initialRoute: RouterPath.result,
             onGenerateRoute: AppRouter.generateRoute,
           ),
         );

@@ -8,4 +8,6 @@ class RouterPath {
   static const String signUp = '/sign_up_screen';
   static const String onboarding = '/onboarding_screen';
   static const String layout = '/layout_screen';
+
+  static const String result = '/result_screen';
 }

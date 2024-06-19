@@ -12,13 +12,13 @@ class Assets {
       'assets/images/25553239_79z_2203_w009_n001_124c_p6_124.jpg';
   static const String images34085583Sl0916203518040 =
       'assets/images/34085583_sl_091620_35180_40.jpg';
+  static const String imagesAnimation1718814774495 =
+      'assets/images/Animation - 1718814774495.json';
   static const String imagesArrow = 'assets/images/arrow.png';
   static const String imagesBackArrow = 'assets/images/back-arrow.png';
   static const String imagesDarkMode = 'assets/images/dark-mode.png';
   static const String imagesEdit = 'assets/images/edit.png';
   static const String imagesEditInfo = 'assets/images/edit-info.png';
-  static const String imagesForgotpasswordCuate =
-      'assets/images/Forgot password-cuate.png';
   static const String imagesHeard = 'assets/images/heard.jpeg';
   static const String imagesHelp = 'assets/images/help.png';
   static const String imagesHelpWebButton = 'assets/images/help-web-button.png';

@@ -38,6 +38,7 @@ dependencies:
   custom_navigation_bar: ^0.8.2
   icons_plus: ^5.0.0
   date_picker_timeline: ^1.2.6
+  lottie: ^3.1.2
 
 
 

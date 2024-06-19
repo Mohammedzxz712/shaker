@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:heart_doctor/modules/login/login_screen.dart';
 import 'package:heart_doctor/layout/layout_screen.dart';
 import 'package:heart_doctor/modules/check/check_screen.dart';
 import 'package:heart_doctor/modules/home/home_screen.dart';
+import 'package:heart_doctor/modules/login/login_screen.dart';
 import 'package:heart_doctor/modules/on_boarding/on_boarding_screen.dart';
 import 'package:heart_doctor/modules/profile/profile_screen.dart';
 import 'package:heart_doctor/modules/sign_up/sign_up_screen.dart';
 import 'package:heart_doctor/modules/tips/tips_details.dart';
 import 'package:heart_doctor/modules/tips/tips_screen.dart';
+
+import '../modules/result/result_screen.dart';
 import 'router_path.dart';
 
 class AppRouter {
@@ -31,6 +33,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => OnBoardingScreen());
       case RouterPath.layout:
         return MaterialPageRoute(builder: (_) => const LayoutScreen());
+      case RouterPath.result:
+        return MaterialPageRoute(builder: (_) => const ResultScreen());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
